@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/youngwind/backend-boilerplate/issues"
   },
-  "homepage": "https://github.com/youngwind/backend-boilerplate#readme"
+  "homepage": "https://github.com/youngwind/backend-boilerplate#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
 }

@@ -19,6 +19,17 @@ app.get('/about', function (req, res) {
   res.send('About');
 });
 
+var user = [{
+  "id": "1",
+  "name": "shaofeng"
+}, {
+  "id": "2",
+  "name": "node"
+}];
+app.get('/user', function (req, res) {
+  res.json(user);
+});
+
 app.use(function (req, res, next) {
   res.type('text/plain');
   res.status(404);

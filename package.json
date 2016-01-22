@@ -1,0 +1,22 @@
+{
+  "name": "backend-boilerplate",
+  "version": "1.0.0",
+  "description": "example backend-boilerpalte",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youngwind/backend-boilerplate.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "youngwind",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youngwind/backend-boilerplate/issues"
+  },
+  "homepage": "https://github.com/youngwind/backend-boilerplate#readme"
+}

@@ -5,6 +5,8 @@
 
 var express = require('express');
 var app = express();
+var cookieParser = require('cookie-parser');
+app.use(cookieParser('aaa'));
 
 app.set('port', process.env.PORT || 5000);
 
@@ -27,6 +29,8 @@ var user = [{
   "name": "node"
 }];
 app.get('/user', function (req, res) {
+  console.log(req.cookies);
+  res.cookie('monster', 'nom nom', {signed: true});
   res.json(user);
 });
 

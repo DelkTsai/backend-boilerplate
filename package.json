@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/youngwind/backend-boilerplate#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.1",
     "express": "^4.13.4"
   }
 }

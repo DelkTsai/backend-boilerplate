@@ -5,47 +5,52 @@
 
 var express = require('express');
 var app = express();
-var cookieParser = require('cookie-parser');
-var credentials = require('./credentials.js');
-app.use(cookieParser(credentials.cookieSecret));
-app.use(require('express-session')());
-
-app.set('port', process.env.PORT || 5000);
-
-// 定制404页面
-app.get('/', function (req, res) {
-  res.type('text/plain');
-  res.send('Meadowalrt Travel');
-});
-
-app.get('/about', function (req, res) {
-  res.type('text/plain');
-  res.send('About');
-});
-
-var user = [{
-  "id": "1",
-  "name": "shaofeng"
-}, {
-  "id": "2",
-  "name": "node"
-}];
-app.get('/user', function (req, res) {
-  console.log(req.cookies);
-  req.session.userName = 'shaofeng';
-  var color = req.session.color || 'dark';
-  res.cookie('monster', 'nom nom', {signed: true});
-  res.json(user);
-});
 
 app.use(function (req, res, next) {
-  res.type('text/plain');
-  res.status(404);
-  res.send('404 not-found');
+  console.log('\n\nALLWAYS');
+  next();
 });
-
-app.listen(app.get('port'), function () {
-  console.log('Express started on http://localhost:' + app.get('port') + ';Press Ctrl-C to terminate.');
+app.get('/a', function (req, res) {
+  console.log('/a: 路由终止 ');
+  res.send('a');
+});
+app.get('/a', function (req, res) {
+  console.log('/a: 永远不会调用 ');
+});
+app.get('/b', function (req, res, next) {
+  console.log('/b: 路由未终止 ');
+  next();
+});
+app.use(function (req, res, next) {
+  console.log('SOMETIMES');
+  next();
+});
+app.get('/b', function (req, res, next) {
+  console.log('/b (part 2): 抛出错误 ');
+  throw new Error('b 失败 ');
+});
+app.use('/b', function (err, req, res, next) {
+  console.log('/b 检测到错误并传递 ');
+  next(err);
+});
+app.get('/c', function (err, req) {
+  console.log('/c: 抛出错误 ');
+  throw new Error('c 失败 ');
+});
+app.use('/c', function (err, req, res, next) {
+  console.log('/c: 检测到错误但不传递 ');
+  next();
+});
+app.use(function (err, req, res, next) {
+  console.log(' 检测到未处理的错误 : ' + err.message);
+  res.send('500 - 服务器错误 ');
+});
+app.use(function (req, res) {
+  console.log(' 未处理的路由 ');
+  res.send('404 - 未找到 ');
+})
+app.listen(5000, function () {
+  console.log(' 监听端口 3000');
 });
 
 

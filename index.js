@@ -6,7 +6,8 @@
 var express = require('express');
 var app = express();
 var cookieParser = require('cookie-parser');
-app.use(cookieParser('aaa'));
+var credentials = require('./credentials.js');
+app.use(cookieParser(credentials.cookieSecret));
 
 app.set('port', process.env.PORT || 5000);
 
@@ -30,6 +31,7 @@ var user = [{
 }];
 app.get('/user', function (req, res) {
   console.log(req.cookies);
+  console.log(req.signedCookies)
   res.cookie('monster', 'nom nom', {signed: true});
   res.json(user);
 });

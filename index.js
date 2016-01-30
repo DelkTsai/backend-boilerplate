@@ -8,6 +8,7 @@ var app = express();
 var cookieParser = require('cookie-parser');
 var credentials = require('./credentials.js');
 app.use(cookieParser(credentials.cookieSecret));
+app.use(require('express-session')());
 
 app.set('port', process.env.PORT || 5000);
 
@@ -31,7 +32,8 @@ var user = [{
 }];
 app.get('/user', function (req, res) {
   console.log(req.cookies);
-  console.log(req.signedCookies)
+  req.session.userName = 'shaofeng';
+  var color = req.session.color || 'dark';
   res.cookie('monster', 'nom nom', {signed: true});
   res.json(user);
 });

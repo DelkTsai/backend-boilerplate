@@ -5,12 +5,14 @@
 
 var express = require('express');
 var app = express();
+app.use(require('body-parser')());
 
 app.use(function (req, res, next) {
   console.log('\n\nALLWAYS');
   next();
 });
 app.get('/a', function (req, res) {
+  console.log(req.body);
   console.log('/a: 路由终止 ');
   res.send('a');
 });

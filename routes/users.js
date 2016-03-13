@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var userDao = require('../dao/userDao.js');
+var userDao = require('../controller/user.js');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {

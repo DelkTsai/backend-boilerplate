@@ -10,17 +10,6 @@ var _ = require('lodash');
 // 使用连接池，提升性能
 var pool  = mysql.createPool(_.extend({}, config.mysql));
 
-// 向前台返回JSON方法的简单封装
-var jsonWrite = function (res, ret) {
-  if(typeof ret === 'undefined') {
-    res.json({
-      code:'1',
-      msg: '操作失败'
-    });
-  } else {
-    res.json(ret);
-  }
-};
 
 module.exports = {
   add: function (req, res, next) {
@@ -30,9 +19,7 @@ module.exports = {
 
       // 建立连接，向表中插入值
       // 'INSERT INTO user(id, name, age) VALUES(0,?,?)',
-      console.log(param)
       connection.query($sql.insert, [param.id, param.name], function(err, result) {
-        console.log(result)
         if(result) {
           result = {
             code: 200,
@@ -41,7 +28,16 @@ module.exports = {
         }
 
         // 以json形式，把操作结果返回给前台页面
-        jsonWrite(res, result);
+        if(typeof result === 'undefined') {
+          res.json({
+            code:'1',
+            msg: '操作失败'
+          });
+        } else {
+          res.json(result);
+        }
+
+
 
         // 释放连接
         connection.release();

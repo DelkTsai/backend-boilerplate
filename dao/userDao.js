@@ -1,11 +1,14 @@
+"use strict";
+
 // 实现与MySQL交互
 var mysql = require('mysql');
-var $conf = require('../conf/db');
-var $util = require('../util/util');
+var config = require('../common/config.js');
 var $sql = require('./userSqlMapping');
 
+var _ = require('lodash');
+
 // 使用连接池，提升性能
-var pool  = mysql.createPool($util.extend({}, $conf.mysql));
+var pool  = mysql.createPool(_.extend({}, config.mysql));
 
 // 向前台返回JSON方法的简单封装
 var jsonWrite = function (res, ret) {
